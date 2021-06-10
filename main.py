@@ -14,9 +14,11 @@ if __name__=='__main__':
     while True:
         
         pendingLinks= getPendingLinks()
+        
+        for link in pendingLinks:
+            validLinks(link)
+            
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             executor.map(validLinks, pendingLinks)
-        
-        
        
 

@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from datetime import datetime 
+from time import sleep
 
 
 
@@ -28,6 +29,7 @@ def createLinktable(link, sourceLink, response, filePath, lastCrawlDt) :
 
     if db.Links.count_documents({}) >= 5000:             #count_documents gives the count of documents present under the collection
         print("Maximum limit reached")
+        sleep(2000)
     
 
 def getPendingLinks() :                          #to find the links which are yet to be crawled

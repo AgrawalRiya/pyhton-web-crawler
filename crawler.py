@@ -14,10 +14,9 @@ def alreadycrawled(link):        #to check if the link is already cralwed betwee
     db = connectToDatabase()
     condition = { '$and' : [{"link":link},{"time": {"$gte": time24hrsback()}}] }
     if (db.Links.count_documents(condition) > 0) :                                               
-        db.Links.update_many({"link":link}, {"$set" : {
-                'isCrawled': True,
-                'lastCrawlDt': datetime.today().replace(microsecond=0),
-                }})
+        db.Links.update_many({"link":link}, {"$set" : { 'isCrawled': True,
+                'lastCrawlDt': datetime.today().replace(microsecond=0)}})
+               
         return True
     else :
         return False
@@ -29,11 +28,10 @@ def getResponse(link):
 
 def saveFile(link):
     response = getResponse(link)
-    random_file = str(uuid.uuid4())
-    filePath = "html/{}.html".format(random_file)
-    file = open(filePath, "wb")            
-    file.write(response.content)                                            
-    file.close()
+    random_file = str(uuid.uuid4())           #gives random name to the file
+    with open ("html/{}.html".format(random_file), 'w') as file:
+       file.write(response.content)
+    filePath= ("html/{}.html".format(random_file))                                         
     return filePath
     
     
@@ -69,27 +67,20 @@ def validLinks(link):
            #absolute Link 
            Links.append(href)
            no_of_links += 1
+           continue
            
         if(i.get('href') =='//'):
            #valid link
            #append
            Links.append('https:' + href)
            no_of_links += 1
+           continue
            
         
 
     if(no_of_links == 0):
         print('All links crawled')
            
-time.sleep(5)     
-
-
-    
-    
-                 
-    
-
-
-
+time.sleep(10)    
 
 
