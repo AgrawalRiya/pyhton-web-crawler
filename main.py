@@ -9,7 +9,7 @@ if __name__=='__main__':
     URL='https://flinkhub.com'
     connectToDatabase()
     response = getResponse(URL)
-    createLinktable(URL, '', response, saveFile(URL))
+    createLinktable(URL, '', response, saveFile(URL), '')
     
     while True:
         

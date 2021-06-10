@@ -30,7 +30,7 @@ def getResponse(link):
 def saveFile(link):
     response = getResponse(link)
     random_file = str(uuid.uuid4())
-    filePath = "HTML_response/{}.html".format(random_file)
+    filePath = "html/{}.html".format(random_file)
     file = open(filePath, "wb")            
     file.write(response.content)                                            
     file.close()
