@@ -9,6 +9,7 @@ from time import sleep
 def connectToDatabase():
     client = MongoClient('localhost', 27017)
     db = client.get_database('crawler')
+    
     return db
     
 

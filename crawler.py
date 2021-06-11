@@ -28,9 +28,10 @@ def getResponse(link):
 
 def saveFile(link):
     response = getResponse(link)
+    soup = BeautifulSoup(response.content, 'html5lib')
     random_file = str(uuid.uuid4())           #gives random name to the file
     with open ("html/{}.html".format(random_file), 'w') as file:
-       file.write(response.content)
+       file.write(soup.prettify())
     filePath= ("html/{}.html".format(random_file))                                         
     return filePath
     
@@ -40,7 +41,7 @@ def validLinks(link):
     soup = BeautifulSoup(response.content, 'html5lib')
     atags = soup.find_all("a", href=True)             #to find all anchor tags with 'href' attribute
     
-    Links =[]
+    links =[]
     no_of_links = 0
     
     for i in atags:
@@ -65,14 +66,14 @@ def validLinks(link):
         if(i.get('href') =='http://'):
            #valid Link
            #absolute Link 
-           Links.append(href)
+           links.append(href)
            no_of_links += 1
            continue
            
         if(i.get('href') =='//'):
            #valid link
            #append
-           Links.append('https:' + href)
+           links.append('https:' + href)
            no_of_links += 1
            continue
            
@@ -80,6 +81,7 @@ def validLinks(link):
 
     if(no_of_links == 0):
         print('All links crawled')
+    return links
            
 time.sleep(10)    
 
